@@ -1,25 +1,20 @@
-# React Three Fiber Example
+# Cube Timer
 
-<p>
-  <!-- iOS -->
-  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  <!-- Android -->
-  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  <!-- Web -->
-  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-</p>
+A Rubik's Cube speedcubing timer for smartphones. Created in React Native for a mobile programming course at Haaga-Helia University of Applied Sciences.
 
-Create Three.js projects using React components and props!
+Features:
 
-## 🚀 How to use
+- Generates a scramble
+- Optionally creates a post-scramble visualization of the cube for checking if you scrambled correctly
+- Optional inspection timer with voice notifications at 8 and 12 seconds
+- Records your solve times
+- Provides statistics (best/worst/average of all and the last 100 solves, plus WCA averages of 5 and 12 solves)
 
-> `npx create-react-native-app my-app -t with-react-three-fiber`
+Using:
 
-- Run `yarn` or `npm install`
-- Run [`expo start`](https://docs.expo.dev/versions/latest/workflow/expo-cli/), try it out.
-
-## 📝 Notes
-
-- [react-three-fiber docs](https://github.com/react-spring/react-three-fiber)
-- [three.js docs](https://threejs.org/docs/)
-- [expo-three docs](https://github.com/expo/expo-three)
+- react-three-fiber: to draw the cube
+- @react-navigation/native: for stack navigation
+- react-native-elements: for UI elements
+- react-native-stopwatch-timer: for the timer
+- expo-speech: for alerts during inspection time
+- expo-sqlite: to store solve times

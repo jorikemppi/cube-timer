@@ -182,6 +182,13 @@ function Cubelet(props) {
 	}
 	
 	// Draw the cubelet. Set six materials, one for each side of the cubelet.
+	const tileMaterials = () => {
+		var table = [];
+		for (var i = 0; i <= 5; i++) {
+			table.push(<TileMaterial tileColor={tileColors[props.location * 6 + i]} displayColors={props.displayColors}/>)
+		}
+		return table;
+	}
 	
 	return (
 		<mesh
@@ -190,12 +197,7 @@ function Cubelet(props) {
 			scale={[1, 1, 1]}
 		>
 			<boxBufferGeometry attach="geometry" args={[.97, .97, .97]} />
-			<TileMaterial tileColor={tileColors[props.location * 6 + 0]} displayColors={props.displayColors}/>
-			<TileMaterial tileColor={tileColors[props.location * 6 + 1]} displayColors={props.displayColors}/>
-			<TileMaterial tileColor={tileColors[props.location * 6 + 2]} displayColors={props.displayColors}/>
-			<TileMaterial tileColor={tileColors[props.location * 6 + 3]} displayColors={props.displayColors}/>
-			<TileMaterial tileColor={tileColors[props.location * 6 + 4]} displayColors={props.displayColors}/>
-			<TileMaterial tileColor={tileColors[props.location * 6 + 5]} displayColors={props.displayColors}/>
+			{tileMaterials()}
 		</mesh>
 	);
 	
@@ -234,47 +236,30 @@ function Cube(props) {
 	
 	useFrame(() => {
 		if (group && group.current) {
-			group.current.rotation.y = group.current.rotation.y + 0.019;			
-			group.current.rotation.x = group.current.rotation.x - 0.013;
+			group.current.rotation.y = group.current.rotation.y + 0.013;			
+			group.current.rotation.x = group.current.rotation.x - 0.007;
 		}
 	});
 	
 	// Draw an inner black cube. This, in addition to the black inner tiles of the cubelets, will create a rectangular groove.
 	// Then, draw each of the cubelets, passing the scramble sequence, the location, and the boolean determining if the cube
 	// colors will be displayed as props.
-
+	
+	const cubelets = () => {
+		var table = [];
+		for (var i = 0; i <= 25; i++) {
+			table.push(<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={i} />)
+		}
+		return table;
+	}
+	
 	return (
 		<group ref={group}>
 			<mesh>
 				<boxBufferGeometry attach="geometry" args={[2.95, 2.95, 2.95]} />
 				<meshBasicMaterial attach="material" color={"black"} />
 			</mesh>
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={0} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={1} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={2} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={3} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={4} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={5} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={6} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={7} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={8} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={9} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={10} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={11} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={12} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={13} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={14} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={15} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={16} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={17} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={18} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={19} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={20} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={21} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={22} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={23} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={24} />
-			<Cubelet scrambleSequence={props.scrambleSequence} displayColors={props.displayColors} location={25} />
+			{cubelets()}
 		</group>
 	);
 	

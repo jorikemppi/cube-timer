@@ -54,7 +54,7 @@ export default function StatsScreen({ route, navigation }) {
 		});
 	}
 	
-	// make a copy a of a results array where +2 second penalties are applied
+	// Make a copy a of a results array where +2 second penalties are applied.
 	const copyAndApplyPenalty = (list) => {
 		var newList = []
 		for (i = 0; i < list.length; i++) {
@@ -68,7 +68,7 @@ export default function StatsScreen({ route, navigation }) {
 	
 	const setStatistics = (solveList, setBest, setWorst, setAverage) => {
 		var times = copyAndApplyPenalty(solveList);
-		// if there are no solves, set everything to --
+		// If there are no solves, set everything to --.
 		if (times.length == 0) {
 			setBest("--");
 			setWorst("--");
@@ -83,17 +83,17 @@ export default function StatsScreen({ route, navigation }) {
 		}
 	}
 	
-	// get statistics from all solves
+	// Get statistics from all solves.
 	useEffect(() => {
 		setStatistics(solves, setBestSolve, setWorstSolve, setAverageSolve);
 	}, [solves]);
 	
-	// get statistics from 100 solves
+	// Get statistics from 100 solves.
 	useEffect(() => {
 		setStatistics(lastHundredSolves, setBestOfHundred, setWorstOfHundred, setAverageOfHundred);
 	}, [lastHundredSolves]);
 	
-	// set WCA average of an amount of solves
+	// Set WCA average of an amount of solves.
 	// (ie. the best and the worst time is ignored, and if there are two DNF solves, the average is DNF)
 	
 	const setWCAAverage = (solveList, solveAmount, setResult) => {
@@ -103,25 +103,23 @@ export default function StatsScreen({ route, navigation }) {
 		} else {
 			
 			var times = copyAndApplyPenalty(solveList);
-			
+
 			times.sort((a, b) => a.time - b.time);
 			
-			//sort times
-			times.sort((a, b) => a.time - b.time);
-			
-			//remove best time
+			// Remove best time.
 			times.shift();
 				
-			//filter out dnfs
+			// Filter out DNFs.
 			times = times.filter(item => item.dnf == 0);
 				
-			//if only one time was removed, remove worst time
+			// If only one time was removed (ie. there were no DNFs) remove worst time.
 			if (times.length == solveAmount - 1) {
 				times.pop();
 			}
 			
-			//if more than two times have been removed, average is DNF, else average is average
-			if (times.length < solveAmount - 1) {
+			// If more than two times have been removed, assume there were two or more DNFs and set the average as DNF.
+			// Otherwise, calculate average time.
+			if (times.length < solveAmount - 2) {
 				setResult("DNF");
 			} else {
 				const reducer = (sum, current) => sum + current.time;
